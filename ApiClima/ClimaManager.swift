@@ -8,11 +8,12 @@
 
 import Foundation
 struct ClimaManager {
-    //let climaURL = "http://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric&q=Morelia"
-    let climaURL = "http://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric"
+    //let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric&q=Morelia"
+    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric"
     func fetchClima(nombreCiudad: String) {
         let urlString = "\(climaURL)&q=\(nombreCiudad)"
         print(urlString)
+        realizarSolicitud(urlString: urlString)
     }
     
     func realizarSolicitud(urlString: String) {
@@ -21,19 +22,32 @@ struct ClimaManager {
             //Crear obj URLSession
             let session = URLSession(configuration: .default)
             //Asignar una tarea a la sesion
-            let tarea = session.dataTask(with: url, completionHandler: handle(data:respuesta:error:))
+            //let tarea = session.dataTask(with: url, completionHandler: handle(data:respuesta:error:))
+            let tarea = session.dataTask(with: url) { (data, respuesta, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let datosSeguros = data {
+                    self.parseJSON(climaData: datosSeguros)
+                }
+            }
+            //Empezar la tarea
             tarea.resume()
         }
     }
-    //Metodo para evitar que la app se congele mientras recibe la informacion de la API
-    func handle(data:Data?, respuesta:URLResponse?, error:Error?){
-        if error != nil {
-            print(error!)
-            return
-        }
-        if let datosSeguros = data {
-            let dataString = String(data: datosSeguros, encoding: .utf8)
-            print(dataString)
+
+    func parseJSON(climaData: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let dataDecodificada = try decoder.decode(ClimaData.self, from: climaData)
+            print(dataDecodificada.name)
+            print(dataDecodificada.timezone)
+            print(dataDecodificada.main.temp)
+            print("Latitud \(dataDecodificada.coord.lat)")
+            print("Longitud \(dataDecodificada.coord.lon)")
+        } catch {
+            print(error)
         }
     }
 }

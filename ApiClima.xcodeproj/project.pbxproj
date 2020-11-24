@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F582A765256CAA71006FD2FE /* ClimaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F582A764256CAA71006FD2FE /* ClimaData.swift */; };
 		F5D759A9256C059A002FD1E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D759A8256C059A002FD1E8 /* AppDelegate.swift */; };
 		F5D759AB256C059A002FD1E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D759AA256C059A002FD1E8 /* SceneDelegate.swift */; };
 		F5D759AD256C059A002FD1E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D759AC256C059A002FD1E8 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F582A764256CAA71006FD2FE /* ClimaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimaData.swift; sourceTree = "<group>"; };
 		F5D759A5256C059A002FD1E8 /* ApiClima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiClima.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5D759A8256C059A002FD1E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5D759AA256C059A002FD1E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				F5D759AA256C059A002FD1E8 /* SceneDelegate.swift */,
 				F5D759AC256C059A002FD1E8 /* ViewController.swift */,
 				F5D759BC256C7723002FD1E8 /* ClimaManager.swift */,
+				F582A764256CAA71006FD2FE /* ClimaData.swift */,
 				F5D759AE256C059A002FD1E8 /* Main.storyboard */,
 				F5D759B1256C059B002FD1E8 /* Assets.xcassets */,
 				F5D759B3256C059B002FD1E8 /* LaunchScreen.storyboard */,
@@ -145,6 +148,7 @@
 				F5D759A9256C059A002FD1E8 /* AppDelegate.swift in Sources */,
 				F5D759BD256C7723002FD1E8 /* ClimaManager.swift in Sources */,
 				F5D759AB256C059A002FD1E8 /* SceneDelegate.swift in Sources */,
+				F582A765256CAA71006FD2FE /* ClimaData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
