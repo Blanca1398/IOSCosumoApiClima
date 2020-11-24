@@ -28,6 +28,9 @@
                                             <constraint firstAttribute="height" constant="40" id="eZt-Wo-V0o"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="gps-826721"/>
+                                        <connections>
+                                            <action selector="getLocalizacion:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SfG-FX-F3A"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WLV-QB-YPe">
                                         <rect key="frame" x="52" y="0.0" width="251" height="40"/>

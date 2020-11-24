@@ -17,9 +17,14 @@ protocol ClimaManagerDelegate {
 struct ClimaManager {
     var delegado: ClimaManagerDelegate?
     let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric&lang=es"
+    
     func fetchClima(nombreCiudad: String) {
         let urlString = "\(climaURL)&q=\(nombreCiudad)"
         print(urlString)
+        realizarSolicitud(urlString: urlString)
+    }
+    func fetchClima(lat:Double, lon:Double) {
+        let urlString = "\(climaURL)&lat=\(lat)&lon=\(lon)"
         realizarSolicitud(urlString: urlString)
     }
     
