@@ -8,12 +8,45 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
+    
+    let climaManager = ClimaManager()
 
+    @IBOutlet weak var buscarTextField: UITextField!
+    @IBOutlet weak var ciudadLabel: UILabel!
+    @IBOutlet weak var temperaturaLabel: UILabel!
+    @IBOutlet weak var climaImg: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        buscarTextField.delegate = self
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        buscarTextField.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(buscarTextField.text!)
+        ciudadLabel.text = buscarTextField.text
+        climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if buscarTextField.text != "" {
+            return true
+        } else {
+            buscarTextField.placeholder = "Escribe una ciudad"
+            return false
+        }
+    }
+    
+    @IBAction func BuscarButton(_ sender: UIButton) {
+        ciudadLabel.text = buscarTextField.text
+        climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+    }
+    
 
 
 }
