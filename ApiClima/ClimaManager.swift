@@ -7,9 +7,15 @@
 //
 
 import Foundation
+
+//Quien adopte ese protocolo tendra que implementar el metodo actualizar clima
+protocol ClimaManagerDelegate {
+    func actualizarClima(clima: ClimaModelo)
+}
+
 struct ClimaManager {
-    //let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric&q=Morelia"
-    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric"
+    var delegado: ClimaManagerDelegate?
+    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=698cb29c0a1e70d1a30a0a9982f6a95a&units=metric&lang=es"
     func fetchClima(nombreCiudad: String) {
         let urlString = "\(climaURL)&q=\(nombreCiudad)"
         print(urlString)
@@ -29,7 +35,9 @@ struct ClimaManager {
                     return
                 }
                 if let datosSeguros = data {
-                    self.parseJSON(climaData: datosSeguros)
+                    if let clima = self.parseJSON(climaData: datosSeguros) {
+                        self.delegado?.actualizarClima(clima: clima)
+                    }
                 }
             }
             //Empezar la tarea
@@ -37,17 +45,22 @@ struct ClimaManager {
         }
     }
 
-    func parseJSON(climaData: Data) {
+    func parseJSON(climaData: Data) -> ClimaModelo? {
         let decoder = JSONDecoder()
         do {
             let dataDecodificada = try decoder.decode(ClimaData.self, from: climaData)
-            print(dataDecodificada.name)
-            print(dataDecodificada.timezone)
-            print(dataDecodificada.main.temp)
-            print("Latitud \(dataDecodificada.coord.lat)")
-            print("Longitud \(dataDecodificada.coord.lon)")
+            let id = dataDecodificada.weather[0].id
+            let nombre = dataDecodificada.name
+            let temperatura = dataDecodificada.main.temp
+            let descripcion = dataDecodificada.weather[0].description
+            
+            //Crear obj personalizado
+            let ObjClima = ClimaModelo(condicionID: id, nombreCiudad: nombre, temperaturaCelcius: temperatura, descriptionClima: descripcion)
+            
+            return ObjClima
         } catch {
             print(error)
+            return nil
         }
     }
 }
