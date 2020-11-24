@@ -11,6 +11,7 @@ import Foundation
 //Quien adopte ese protocolo tendra que implementar el metodo actualizar clima
 protocol ClimaManagerDelegate {
     func actualizarClima(clima: ClimaModelo)
+    func huboError(cualError: Error)
 }
 
 struct ClimaManager {
@@ -32,6 +33,7 @@ struct ClimaManager {
             let tarea = session.dataTask(with: url) { (data, respuesta, error) in
                 if error != nil {
                     print(error!)
+                    self.delegado?.huboError(cualError: error!)
                     return
                 }
                 if let datosSeguros = data {
@@ -60,6 +62,7 @@ struct ClimaManager {
             return ObjClima
         } catch {
             print(error)
+            delegado?.huboError(cualError: error)
             return nil
         }
     }

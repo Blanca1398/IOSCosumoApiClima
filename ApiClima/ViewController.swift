@@ -9,10 +9,31 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, ClimaManagerDelegate {
+    func huboError(cualError: Error) {
+        print(cualError.localizedDescription)
+        DispatchQueue.main.async {
+            self.ciudadLabel.text = ""
+            self.descriptionLabel.text = cualError.localizedDescription
+            self.climaFondoImg.image = UIImage(named: "city7.jpg")
+            self.climaImg.image = UIImage(systemName:"cloud.fill")
+        }
+        
+    }
+    
     func actualizarClima(clima: ClimaModelo) {
         print(clima.temperaturaCelcius)
         print(clima.condicionID)
         print(clima.descriptionClima)
+        print(clima.obtenerCondicionClima)
+        
+        DispatchQueue.main.async {
+            self.temperaturaLabel.text = String(clima.temperaturaCelcius)
+            self.descriptionLabel.text = clima.descriptionClima
+            self.climaFondoImg.image = UIImage(named: clima.obtenerCondicionClima)
+            self.climaImg.image = UIImage(systemName:clima.obtenerCondicionClimaIcon)
+        }
+        
+        
     }
     
     
@@ -23,6 +44,8 @@ class ViewController: UIViewController, UITextFieldDelegate, ClimaManagerDelegat
     @IBOutlet weak var temperaturaLabel: UILabel!
     @IBOutlet weak var climaImg: UIImageView!
     
+    @IBOutlet weak var climaFondoImg: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         buscarTextField.delegate = self
