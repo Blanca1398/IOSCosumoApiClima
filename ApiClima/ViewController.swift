@@ -36,8 +36,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction func BuscarButton(_ sender: UIButton) {
-        ciudadLabel.text = buscarTextField.text
-        climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+        if buscarTextField.text != "" {
+            ciudadLabel.text = buscarTextField.text
+            climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+        }
+        else {
+            //Alerta
+            let alerta = UIAlertController(title: "Campo Vacio", message: "Porfavor asegurese de no dejar el campo vacio al buscar", preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Entendido", style: .default, handler: nil)
+            alerta.addAction(actionOk)
+            self.present(alerta, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func getLocalizacion(_ sender: UIButton) {
@@ -51,10 +61,19 @@ extension ViewController : UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(buscarTextField.text!)
-        ciudadLabel.text = buscarTextField.text
-        climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
-        return true
+        if buscarTextField.text != "" {
+            ciudadLabel.text = buscarTextField.text
+            climaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+            return true
+        }
+        else {
+            //Alerta
+            let alerta = UIAlertController(title: "Campo Vacio", message: "Porfavor asegurese de no dejar el campo vacio al buscar", preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Entendido", style: .default, handler: nil)
+            alerta.addAction(actionOk)
+            self.present(alerta, animated: true, completion: nil)
+            return false
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -85,10 +104,26 @@ extension ViewController : CLLocationManagerDelegate {
 extension ViewController : ClimaManagerDelegate {
     func huboError(cualError: Error) {
         print(cualError.localizedDescription)
+        
         DispatchQueue.main.async {
+            if cualError.localizedDescription == "The data couldn’t be read because it is missing." {
+                //Alerta
+                let alerta = UIAlertController(title: "Ciudad Desconocida", message: "Verifica que el nombre de la ciudad esta bien escrito e intentalo de nuevo", preferredStyle: .alert)
+                let actionOk = UIAlertAction(title: "Entendido", style: .default, handler: nil)
+                alerta.addAction(actionOk)
+                self.present(alerta, animated: true, completion: nil)
+                self.descriptionLabel.text = "Ciudad Desconocida"
+            }
+            if cualError.localizedDescription == "The Internet connection appears to be offline." {
+                //Alerta
+                let alerta = UIAlertController(title: "Conexion de Internet", message: "Verifique que tenga internet e intentelo de nuevo", preferredStyle: .alert)
+                let actionOk = UIAlertAction(title: "Entendido", style: .default, handler: nil)
+                alerta.addAction(actionOk)
+                self.present(alerta, animated: true, completion: nil)
+                self.descriptionLabel.text = "Verifica Conexion de Internet"
+            }
             self.ciudadLabel.text = ""
             self.temperaturaLabel.text = ""
-            self.descriptionLabel.text = cualError.localizedDescription
             self.climaFondoImg.image = UIImage(named: "city7.jpg")
             self.climaImg.image = UIImage(systemName:"cloud.fill")
         }
