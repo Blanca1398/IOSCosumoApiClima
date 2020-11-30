@@ -23,18 +23,33 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var climaFondoImg: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
+    
+    @IBOutlet weak var maxLabel: UILabel!
+    @IBOutlet weak var minLabel: UILabel!
+    @IBOutlet weak var sensacionLabel: UILabel!
+    @IBOutlet weak var vientosLabel: UILabel!
+    
+    
+    @IBOutlet weak var c1Label: UILabel!
+    @IBOutlet weak var c2Label: UILabel!
+    @IBOutlet weak var c3Label: UILabel!
+    @IBOutlet weak var kmLabel: UILabel!
+    
+    var aqua:UIColor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buscarTextField.delegate = self
         climaManager.delegado = self
         //Primero se solicita el permiso
         locationManager.delegate = self
-        
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
     }
-
+    
+    
     @IBAction func BuscarButton(_ sender: UIButton) {
         if buscarTextField.text != "" {
             ciudadLabel.text = buscarTextField.text
@@ -52,6 +67,21 @@ class ViewController: UIViewController {
     
     @IBAction func getLocalizacion(_ sender: UIButton) {
         locationManager.requestLocation()
+    }
+    
+    //funcion para convertir color hexa de UIColor
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+         red: CGFloat((rgbValue & 0xFF0000) >> 16)/255.0,
+         green: CGFloat((rgbValue & 0x00FF00) >> 8)/255.0,
+         blue: CGFloat(rgbValue & 0x0000FF)/255.0,
+         alpha: CGFloat(1.0)
+        )
+    }
+    
+    //cerrar teclado
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
@@ -126,6 +156,10 @@ extension ViewController : ClimaManagerDelegate {
             self.temperaturaLabel.text = ""
             self.climaFondoImg.image = UIImage(named: "city7.jpg")
             self.climaImg.image = UIImage(systemName:"cloud.fill")
+            self.maxLabel.text = ""
+            self.minLabel.text = ""
+            self.vientosLabel.text = ""
+            self.sensacionLabel.text = ""
         }
         
     }
@@ -137,11 +171,43 @@ extension ViewController : ClimaManagerDelegate {
         print(clima.obtenerCondicionClima)
         
         DispatchQueue.main.async {
+            //Color del icono
+            self.climaImg.tintColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            
+            //Color del texto
+            self.maxLabel.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.minLabel.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.vientosLabel.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.sensacionLabel.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            
+            self.c1Label.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.c2Label.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.c3Label.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            self.kmLabel.textColor = self.UIColorFromRGB(rgbValue: clima.obtenerColorTexto)
+            
+            //Color de la sombra del texto
+            self.maxLabel.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.minLabel.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.vientosLabel.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.sensacionLabel.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            
+            self.c1Label.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.c2Label.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.c3Label.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+            self.kmLabel.shadowColor = self.UIColorFromRGB(rgbValue: clima.obtenerSombraTexto)
+
             self.ciudadLabel.text = String(clima.nombreCiudad)
             self.temperaturaLabel.text = String(clima.temperaturaCelcius)
             self.descriptionLabel.text = clima.descriptionClima
             self.climaFondoImg.image = UIImage(named: clima.obtenerCondicionClima)
             self.climaImg.image = UIImage(systemName:clima.obtenerCondicionClimaIcon)
+           
+            self.maxLabel.text = String(clima.temperaturaMaxima)
+            self.minLabel.text = String(clima.temperaturaMinima)
+            self.vientosLabel.text = String(clima.vientos)
+            self.sensacionLabel.text = String(clima.sensasionTermica)
+            
+            
         }
         
         

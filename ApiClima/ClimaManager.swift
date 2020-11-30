@@ -60,9 +60,13 @@ struct ClimaManager {
             let nombre = dataDecodificada.name
             let temperatura = dataDecodificada.main.temp
             let descripcion = dataDecodificada.weather[0].description
+            let vientos = dataDecodificada.wind.speed
+            let maxima = dataDecodificada.main.temp_max
+            let minima = dataDecodificada.main.temp_min
+            let sensacion = dataDecodificada.main.feels_like
             
             //Crear obj personalizado
-            let ObjClima = ClimaModelo(condicionID: id, nombreCiudad: nombre, temperaturaCelcius: temperatura, descriptionClima: descripcion)
+            let ObjClima = ClimaModelo(condicionID: id, nombreCiudad: nombre, temperaturaCelcius: temperatura, descriptionClima: descripcion,temperaturaMaxima: maxima, temperaturaMinima: minima, sensasionTermica: sensacion, vientos: vientos)
             
             return ObjClima
         } catch {

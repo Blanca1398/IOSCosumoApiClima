@@ -12,6 +12,10 @@ struct ClimaModelo {
     let nombreCiudad:String
     let temperaturaCelcius:Double
     let descriptionClima:String
+    let temperaturaMaxima:Double
+    let temperaturaMinima:Double
+    let sensasionTermica:Double
+    let vientos:Double
     
     var obtenerCondicionClima:String {
         switch condicionID {
@@ -49,4 +53,41 @@ struct ClimaModelo {
             return "cloud.fill"
         }
     }
+    var obtenerColorTexto:UInt {
+        switch condicionID {
+        case 200...232:
+            return 0xffffff
+        case 300...321:
+            return 0xffffff
+        case 500...531:
+            return 0xffffff
+        case 600...622:
+            return 0x1BC3B9
+        case 800:
+            return 0xffffff
+        case 800...804:
+            return 0xffffff
+        default:
+            return 0xffffff
+        }
+    }
+    
+     var obtenerSombraTexto:UInt {
+           switch condicionID {
+           case 200...232:
+               return 0x000000
+           case 300...321:
+               return 0x000000
+           case 500...531:
+               return 0x000000
+           case 600...622:
+               return 0xffffff
+           case 800:
+               return 0x000000
+           case 800...804:
+               return 0x000000
+           default:
+               return 0x000000
+           }
+       }
 }

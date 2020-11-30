@@ -19,14 +19,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="La mejor App para consultar el clima" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eql-zV-JRL">
-                                <rect key="frame" x="165" y="554" width="190" height="77"/>
+                                <rect key="frame" x="100" y="541" width="255" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="77" id="6fR-G2-7LE"/>
+                                    <constraint firstAttribute="height" constant="90" id="6fR-G2-7LE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
                                 <color key="textColor" red="0.1063071959" green="0.76564960510000002" blue="0.72748569929999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="2" height="-4"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -35,7 +36,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eql-zV-JRL" secondAttribute="bottom" constant="36" id="Eee-zO-m2X"/>
                             <constraint firstItem="6W9-ac-9qg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IBM-z2-KKi"/>
                             <constraint firstAttribute="trailing" secondItem="eql-zV-JRL" secondAttribute="trailing" constant="20" symbolic="YES" id="Uw4-81-H4B"/>
-                            <constraint firstItem="eql-zV-JRL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="165" id="X7r-CF-YP7"/>
+                            <constraint firstItem="eql-zV-JRL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="X7r-CF-YP7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6W9-ac-9qg" secondAttribute="bottom" id="Y8g-XS-axh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6W9-ac-9qg" secondAttribute="trailing" id="l9A-3z-450"/>
                         </constraints>
